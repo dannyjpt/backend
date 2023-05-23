@@ -1,0 +1,19 @@
+Link de imagenes en drive
+
+
+--mongo commands
+use "database_name" //usar la base de datos
+show collections // mostrar colecciones
+db."collection_name".find().pretty() //encontrar colecciones
+db."collection_name".drop() // eliminar colecion
+
+--desarrollo
+pure css loading.io
+cliooy css
+modelos news, blogs, actividades, contacto
+db.tareas.aggregate([{$project:{des: {$substrBytes:["$description",0,7]}}}])
+
+--Reiniciar server 
+sudo systemctl reboot
+pm2 start src/index.js --name itech-app
+
