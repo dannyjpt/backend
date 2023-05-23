@@ -5,24 +5,45 @@ const usuario = require('../models/cinema_users');
 const bcrypt = require('bcryptjs');
 const cinemaController = {};
 
-cinemaController.obtenerFilms=async (req, res) =>{
+cinemaController.obtenerFilms = async (req, res) => {
+  const films = [
+    {
+      _id: {
+        $oid: "63f6a97f6fb0f22b2c759524"
+      },
+      title: "The Green Apple",
+      category: "First A",
+      Time: "7:30-8:15",
+      booking_amount: 30,
+      image: "http://drive.google.com/uc?export=view&id=1ziY8tDu8-6ZO_P3Qj130JfHbuFskeY_M",
+      position: 0,
+      main_category: "First",
+      description: "1A students have English class in their classroom. The teacher\nannounces that Maria Paula is chosen to be the queen in a\npresentation coming soon. Everybody applauds, but Antonella and her\nfriends don’t seem to be happy with the idea. They think of a magic\nplan to help Antonella become the queen. Magician, green apple,\nmagic tricks, king of the forest...will all of this help?"
+    },
+    {
+      _id: {
+        $oid: "63f6a97f6fb0f22b2c759525"
+      },
+      title: "What A Terrific Day",
+      category: "First B",
+      Time: "7:30-8:15",
+      booking_amount: 30,
+      image: "https://drive.google.com/uc?export=view&id=1ZehWFAix7OTgCLsWef230MSAwgYkyCzi",
+      main_category: "First",
+      description: "1B students are on their morning break. Martin and his friends are mad\nat Luca who doesn’t want them to play soccer with his new ball. They\nargue and Martin kicks the ball far into the forest. Luca cries, his friends\nwant to help him. They all decide to explore the forest and find his ball.\nBut what a surprise they will encounter in the forest... aliens, foxes,\nIndian princesses, and so on... will they find the ball or will\nthey become the heroes of the day helping their alien friend?"
+    }
+  ];
 
-    const allFilms = await cinema.find().lean();
-    const elements = [];
-        for (let index = 0; index < allFilms.length; index++) {
-            elements[index] = 
-            {
-                "id":allFilms[index]._id,
-                "title":allFilms[index].title,
-                "time":allFilms[index].Time,
-                "category": allFilms[index].category,
-                "image": allFilms[index].image,
-                "main_category": allFilms[index].main_category
-            } 
-        }
-        //console.log(elements);
-        res.json(elements);
+  try {
+    // Save the films in the database
+    await cinema.insertMany(films);
+    res.send("Registros guardados exitosamente");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error al guardar los registros");
+  }
 };
+
 
 cinemaController.filmById = async (req, res) =>{
 
